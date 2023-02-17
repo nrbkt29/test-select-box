@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+    <label for="source-box">Source items:</label>
+    <select id="source-box" multiple>
+      <option value="item1" data-id="1">Item 1</option>
+      <option value="item2" data-id="2">Item 2</option>
+      <option value="item3" data-id="3">Item 3</option>
+      <option value="item4" data-id="4">Item 4</option>
+      <option value="item5" data-id="5">Item 5</option>
+    </select>
+    
+    <button id="add-button">Add &raquo;</button>
+    <button id="remove-button">&laquo; Remove</button>
+    
+    <label for="destination-box">Destination items:</label>
+    <select id="destination-box" multiple></select>
+    
+
+<script>
+// get references to the select element and the two buttons
+const sourceBox = document.querySelector("#source-box");
+const destinationBox = document.querySelector("#destination-box");
+const addButton = document.querySelector("#add-button");
+const removeButton = document.querySelector("#remove-button");
+
+// add event listeners to the buttons
+addButton.addEventListener("click", function() {
+  // loop through the selected options in the source box and move them to the destination box
+  for (let i = 0; i < sourceBox.selectedOptions.length; i++) {
+    const selectedOption = sourceBox.selectedOptions[i];
+    const newOption = document.createElement("option");
+    newOption.value = selectedOption.value;
+    newOption.textContent = selectedOption.textContent;
+    newOption.dataset.id = selectedOption.dataset.id;
+    destinationBox.appendChild(newOption);
+  }
+
+  // clear the selected options in the source box
+  sourceBox.selectedIndex = -1;
+});
+
+removeButton.addEventListener("click", function() {
+  // loop through the selected options in the destination box and move them to the source box
+  for (let i = 0; i < destinationBox.selectedOptions.length; i++) {
+    const selectedOption = destinationBox.selectedOptions[i];
+    const newOption = document.createElement("option");
+    newOption.value = selectedOption.value;
+    newOption.textContent = selectedOption.textContent;
+    newOption.dataset.id = selectedOption.dataset.id;
+    sourceBox.appendChild(newOption);
+  }
+
+  // clear the selected options in the destination box
+  destinationBox.selectedIndex = -1;
+});
+
+</script> 
+</body>
+
+</html>
